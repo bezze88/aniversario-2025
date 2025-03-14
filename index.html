@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina la fecha o el lugar</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .container { max-width: 500px; margin: auto; }
+        img { max-width: 100%; height: auto; margin-top: 20px; border-radius: 10px; }
+        .opciones { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+        button { padding: 10px; font-size: 16px; cursor: pointer; }
+        #mensaje { font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>¿Dónde o cuando fue tomada esta foto?</h2>
+        <img id="imagen" src="" alt="Imagen Secreta">
+        <div class="opciones" id="opciones"></div>
+        <p id="mensaje"></p>
+    </div>
+
+    <script>
+        const lugares = [
+            {
+                imagen: "fotos/madrid-2024.jpg",
+                opciones: ["Zaragoza", "Madrid", "Logroño"],
+                respuesta: "Madrid"
+            },
+            {
+                imagen: "fotos/ainsa.jpg",
+                opciones: ["Panticosa", "Ainsa", "Burgo de Osma"],
+                respuesta: "Ainsa"
+            },			
+            {
+                imagen: "fotos/vinuesa.jpg",
+                opciones: ["Embalse de Alloz", "Salou", "Laguna Negra"],
+                respuesta: "Laguna Negra"
+            },	
+            {
+                imagen: "fotos/bardenas.jpg",
+                opciones: ["Oeste lejano", "Portaventura", "Las Bardenas"],
+                respuesta: "Las Bardenas"
+            },						
+            {
+                imagen: "fotos/portaventura2023.jpg",
+                opciones: ["2023", "2024", "No lo se"],
+                respuesta: "2023"
+            },					
+			{
+                imagen: "fotos/ogrito.jpg",
+                opciones: ["Crestas de Quel", "Ogrito", "Atom"],
+                respuesta: "Ogrito"
+            },		
+            {
+                imagen: "fotos/lavanda.jpg",
+                opciones: ["Villarroya", "Los Sotos del Ebro", "San Vicente de Munilla"],
+                respuesta: "Villarroya"
+            },						
+            {
+                imagen: "fotos/boda_my.jpg",
+                opciones: ["Boda Sandra-Edu", "Boda Maria-Yova", "Bautizo Cloe"],
+                respuesta: "Boda Maria-Yova"
+            },			
+			{
+                imagen: "fotos/bermeo.jpg",
+                opciones: ["Bermeo", "Olite", "No lo se"],
+                respuesta: "Bermeo"
+            },
+            {
+                imagen: "fotos/cervera.jpg",
+                opciones: ["Panticosa", "Pirineo", "Cervera"],
+                respuesta: "Cervera"
+            },			
+			{
+                imagen: "fotos/fiestas-calahorra-2024.jpg",
+                opciones: ["Oncala", "Tuzla", "Calahorra"],
+                respuesta: "Calahorra"
+            },						
+            {
+                imagen: "fotos/huerta2023.jpg",
+                opciones: ["2024", "2023", "No lo se"],
+                respuesta: "2023"
+            },			
+            {
+                imagen: "fotos/haro.jpg",
+                opciones: ["Haro", "Calle Laurel", "Vitoria"],
+                respuesta: "Haro"
+            },			
+            {
+                imagen: "fotos/isasa2023.jpg",
+                opciones: ["2024", "2023", "No lo se"],
+                respuesta: "2023"
+            },	
+            {
+                imagen: "fotos/logrono-medieval.jpg",
+                opciones: ["Vinuesa", "Logroño", "Cornago"],
+                respuesta: "Logroño"
+            },						
+            {
+                imagen: "fotos/puentearnedo.jpg",
+                opciones: ["Vitoria", "Estella", "Arnedo"],
+                respuesta: "Arnedo"
+            },			
+            {
+                imagen: "fotos/balneario_burgodeosma.jpg",
+                opciones: ["Panticosa", "Burgo de Osma", "Madrid"],
+                respuesta: "Burgo de Osma"
+            },				
+            {
+                imagen: "fotos/despedida_my.jpg",
+                opciones: ["Despedida Maria-Yova", "Comida familiar en el bajo", "Comida con los amigos"],
+                respuesta: "Despedida Maria-Yova"
+            },			
+            {
+                imagen: "fotos/tarragona2023.jpg",
+                opciones: ["Tamarit", "Tarragona", "Salou"],
+                respuesta: "Tarragona"
+            },						
+            {
+                imagen: "fotos/yanguas.jpg",
+                opciones: ["Cornago", "Vinuesa", "Yanguas"],
+                respuesta: "Yanguas"
+            },	
+            {
+                imagen: "fotos/sierracantabria.jpg",
+                opciones: ["Isasa", "Sierra Cantabria", "Encima de Santa Eulalia"],
+                respuesta: "Sierra Cantabria"
+            },			
+            {
+                imagen: "fotos/arbolnavidad2023.jpg",
+                opciones: ["No lo se", "2024", "2023"],
+                respuesta: "2023"
+            },		
+            {
+                imagen: "fotos/cinesyelmo.jpg",
+                opciones: ["Calahorra", "Teatro Cervantes", "Logroño"],
+                respuesta: "Logroño"
+            },	
+            {
+                imagen: "fotos/cresta-quel.jpg",
+                opciones: ["El mirador del Peter", "Crestas de Quel", "Isasa"],
+                respuesta: "Crestas de Quel"
+            },						
+            {
+                imagen: "fotos/zaragoza-2024.jpg",
+                opciones: ["Madrid", "Logroño", "Zaragoza"],
+                respuesta: "Zaragoza"
+            },					
+            {
+                imagen: "fotos/candanchu.jpg",
+                opciones: ["Astun", "Formigal", "Candanchu"],
+                respuesta: "Candanchu"
+            },			
+            {
+                imagen: "fotos/sopitas.jpg",
+                opciones: ["La Huella", "Sopitas", "Mercadal 21"],
+                respuesta: "Sopitas"
+            },	
+            {
+                imagen: "fotos/oncala.jpg",
+                opciones: ["Yanguas", "Oncala", "Cornago"],
+                respuesta: "Oncala"
+            },									
+            {
+                imagen: "fotos/puente-viejo-arnedo.jpg",
+                opciones: ["Cornago", "Turruncun", "Arnedo"],
+                respuesta: "Arnedo"
+            },			
+			{
+                imagen: "fotos/molino.jpg",
+                opciones: ["Puerto Lápice", "Tembleque", "Madridejos"],
+                respuesta: "Puerto Lápice"
+            },			
+            {
+                imagen: "fotos/bautizo.jpg",
+                opciones: ["Un dia cualquiera", "Bautizo", "Salir a cenar"],
+                respuesta: "Bautizo"
+            },
+			{
+                imagen: "fotos/cornago-2024.jpg",
+                opciones: ["Vinuesa", "Cornago", "Yanguas"],
+                respuesta: "Cornago"
+            },				
+            {
+                imagen: "fotos/bardepueblo-julio-2024.jpg",
+                opciones: ["Julio 2024", "Junio 2024", "Mayo 2024"],
+                respuesta: "Julio 2024"
+            },
+            {
+                imagen: "fotos/atom.jpg",
+                opciones: ["Atom", "Ogrito", "Arnedillo"],
+                respuesta: "Atom"
+            },							
+			{
+                imagen: "fotos/concierto-tuzla.jpg",
+                opciones: ["2º dia en Tuzla", "3er dia en Tuzla", "4º dia en Tuzla"],
+                respuesta: "3er dia en Tuzla"
+            },		
+            {
+                imagen: "fotos/villajoyosa-2024.jpg",
+                opciones: ["31-10-2024", "01-11-2024", "02-11-2024"],
+                respuesta: "01-11-2024"
+            },			
+			{
+                imagen: "fotos/marques-de-riscal.jpg",
+                opciones: ["Cenicero", "Elciego", "Fuenmayor"],
+                respuesta: "Elciego"
+            },				
+            {
+                imagen: "fotos/bilbao.jpg",
+                opciones: ["Granada", "Bilbao", "Vitoria"],
+                respuesta: "Bilbao"
+            },
+            {
+                imagen: "fotos/cumple-mila.jpg",
+                opciones: ["Cumple JG", "Cumple Mila", "Cumple Guzman"],
+                respuesta: "Cumple Mila"
+            },					
+            {
+                imagen: "fotos/valtajeros.jpg",
+                opciones: ["Valdelavilla", "Fuentes de Magaña", "Valtajeros"],
+                respuesta: "Valtajeros"
+            },			
+            {
+                imagen: "fotos/castroviejo.jpg",
+                opciones: ["Pasarelas Castroviejo", "Pasarelas La Graja", "Pasarelas Duruelo"],
+                respuesta: "Pasarelas Castroviejo"
+            },	
+            {
+                imagen: "fotos/panticosa.jpg",
+                opciones: ["Pirineo", "Panticosa", "Cervera"],
+                respuesta: "Panticosa"
+            },			
+            {
+                imagen: "fotos/sidreria-arnedo.jpg",
+                opciones: ["Junio 2024", "Julio 2024", "Agosto 2024"],
+                respuesta: "Agosto 2024"
+            },
+			{
+                imagen: "fotos/comida-con-amigos.jpg",
+                opciones: ["Diciembre 2024", "Enero 2025", "Febrero 2025"],
+                respuesta: "Enero 2025"
+            },				
+            {
+                imagen: "fotos/vitoria-sagartoki.jpg",
+                opciones: ["Erkiaga", "Sagartoki", "El Toloño"],
+                respuesta: "Sagartoki"
+            },			
+			{
+                imagen: "fotos/salou-2024.jpg",
+                opciones: ["Bermeo", "Salou", "Hawai"],
+                respuesta: "Salou"
+            },			
+            {
+                imagen: "fotos/el-tahiti-logrono.jpg",
+                opciones: ["El Cid", "Calderas", "El Tahití"],
+                respuesta: "El Tahití"
+            },
+            {
+                imagen: "fotos/munilla-2024.jpg",
+                opciones: ["Cata de tartas", "Cata de Quesos", "Cata de tortillas"],
+                respuesta: "Cata de Quesos"
+            },				
+            {
+                imagen: "fotos/japones.jpg",
+                opciones: ["Un restaurante muy chulo", "Ni idea", "Garito donde voy a cenar esta noche"],
+                respuesta: "Garito donde voy a cenar esta noche"
+            }						
+        ];
+
+        let indiceActual = 0;
+
+        function mostrarImagen() {
+            const lugarActual = lugares[indiceActual];
+            document.getElementById("imagen").src = lugarActual.imagen;
+            document.getElementById("mensaje").innerText = "";
+
+            // Limpiar opciones anteriores
+            const opcionesDiv = document.getElementById("opciones");
+            opcionesDiv.innerHTML = "";
+
+            // Crear botones con las opciones
+            lugarActual.opciones.forEach(opcion => {
+                const boton = document.createElement("button");
+                boton.innerText = opcion;
+                boton.onclick = () => verificarRespuesta(opcion);
+                opcionesDiv.appendChild(boton);
+            });
+        }
+
+        function verificarRespuesta(opcionSeleccionada) {
+            let lugarActual = lugares[indiceActual];
+
+            if (opcionSeleccionada === lugarActual.respuesta) {
+                document.getElementById("mensaje").innerText = "¡Correcto!";
+
+                // Pasar a la siguiente imagen después de unos segundos
+                setTimeout(() => {
+                    indiceActual++;
+                    if (indiceActual < lugares.length) {
+                        mostrarImagen();
+                    } else {
+                        document.querySelector("h2").innerText = "Has acertado todas las preguntas y has ganado una cena con tu nene. ¡Felicidades!";
+                        document.getElementById("imagen").style.display = "none";
+                        document.getElementById("opciones").style.display = "none";
+                    }
+                }, 2000);
+            } else {
+                document.getElementById("mensaje").innerText = "Incorrecto, intenta de nuevo.";
+            }
+        }
+
+        // Inicializar el juego
+        mostrarImagen();
+    </script>
+
+</body>
+</html>
