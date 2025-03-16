@@ -91,6 +91,17 @@
             0% { transform: translateY(0) scale(1); opacity: 1; }
             100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
         }
+
+        /* Botón de volver atrás */
+        #btn-atras {
+            margin-top: 15px;
+            background: gray;
+            display: none;
+        }
+
+        #btn-atras:hover {
+            background: darkgray;
+        }
     </style>
 </head>
 <body>
@@ -104,6 +115,7 @@
         <img id="imagen" src="" alt="Imagen Secreta">
         <div class="opciones" id="opciones"></div>
         <p id="mensaje"></p>
+        <button id="btn-atras" onclick="retrocederPregunta()">🔙 Atrás</button>
     </div>
 
     <script>
@@ -382,6 +394,9 @@
                 opcionesDiv.appendChild(boton);
             });
 
+            // Mostrar u ocultar botón "Atrás"
+            document.getElementById("btn-atras").style.display = indiceActual > 0 ? "block" : "none";
+
             // Iniciar música de fondo si aún no está sonando
             if (musica.paused) {
                 musica.volume = 0.3;
@@ -405,6 +420,7 @@
                         document.querySelector("h2").innerText = "🎉 Has acertado todas las preguntas y has ganado una cena con tu nene. ¡Felicidades! 🎉";
                         document.getElementById("imagen").style.display = "none";
                         document.getElementById("opciones").style.display = "none";
+                        document.getElementById("btn-atras").style.display = "none";
                     }
                 }, 2000);
             } else {
@@ -412,6 +428,13 @@
                 document.getElementById("sonido-error").play();
             }
             }
+
+        function retrocederPregunta() {
+            if (indiceActual > 0) {
+                indiceActual--;
+                mostrarImagen();
+            }
+        }
 
         function crearCorazon() {
             let heart = document.createElement("div");
