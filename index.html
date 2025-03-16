@@ -5,18 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adivina la fecha o el lugar</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        .container { max-width: 500px; margin: auto; }
-        img { max-width: 100%; height: auto; margin-top: 20px; border-radius: 10px; }
-        .opciones { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
-        button { padding: 10px; font-size: 16px; cursor: pointer; }
-        #mensaje { font-weight: bold; margin-top: 10px; }
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: url('fondo_romantico.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            border: 3px solid white;
+        }
+
+        .opciones {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            background: crimson;
+            color: white;
+            border-radius: 10px;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: darkred;
+            transform: scale(1.05);
+        }
+
+        #mensaje {
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>¿Dónde o cuando fue tomada esta foto?</h2>
+        <h2>¿Dónde o cuando fue tomada esta foto? ❤️</h2>
         <img id="imagen" src="" alt="Imagen Secreta">
         <div class="opciones" id="opciones"></div>
         <p id="mensaje"></p>
@@ -295,7 +345,7 @@
             let lugarActual = lugares[indiceActual];
 
             if (opcionSeleccionada === lugarActual.respuesta) {
-                document.getElementById("mensaje").innerText = "¡Correcto!";
+                document.getElementById("mensaje").innerText = "¡Correcto! ❤️";
 
                 // Pasar a la siguiente imagen después de unos segundos
                 setTimeout(() => {
@@ -303,13 +353,13 @@
                     if (indiceActual < lugares.length) {
                         mostrarImagen();
                     } else {
-                        document.querySelector("h2").innerText = "Has acertado todas las preguntas y has ganado una cena con tu nene. ¡Felicidades!";
+                        document.querySelector("h2").innerText = "🎉 Has acertado todas las preguntas y has ganado una cena con tu nene. ¡Felicidades! 🎉";
                         document.getElementById("imagen").style.display = "none";
                         document.getElementById("opciones").style.display = "none";
                     }
                 }, 2000);
             } else {
-                document.getElementById("mensaje").innerText = "Incorrecto, intenta de nuevo.";
+                document.getElementById("mensaje").innerText = "Incorrecto, intenta de nuevo. 💔";
             }
         }
 
